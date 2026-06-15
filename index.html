@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sumas de Riemann - Enfoque Didáctico</title>
+    <link rel="stylesheet" href="estilos.css">
+    
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <header style="text-align: center; padding: 30px 15px; margin-bottom: 25px; background: linear-gradient(135deg, #f8fafc, #eff6ff); border-radius: 16px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
+    
+    <h1 style="margin: 0; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to right, #2563eb, #7c3aed, #db2777); -webkit-background-clip: text; color: transparent; text-shadow: 2px 2px 8px rgba(37, 99, 235, 0.15); font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; letter-spacing: -1px;">
+        Explorador de Sumas de Riemann
+    </h1>
+    
+</header>
+    
+   <div class="pestanas">
+        <button class="btn-pestana activo" onclick="abrirPestana(event, 'teoria')">
+            <i class="fa-solid fa-book-open"></i> Contenido
+        </button>
+        <button class="btn-pestana" onclick="abrirPestana(event, 'simulador')">
+            <i class="fa-solid fa-chart-area"></i> Simulador Interactivo
+        </button>
+    </div>
+<div id="teoria" class="contenido-pestana" style="display: block;">
+        <div class="panel-teoria">
+            
+            <div class="teoria-header">
+                <h2><i class="fa-solid fa-book-open-reader"></i> ¿Qué son las Sumas de Riemann?</h2>
+            </div>
+            <h3>Definición formal</h3>    
+                <p>La suma de Riemann se define formalmente como el producto escalar acumulado de estas áreas. El límite matemático de esta suma, cuando el número de rectángulos tiende al infinito (<strong>n &rarr; &infin;</strong>), converge exactamente en la integral definida de la función.</p>
+            <h3>Aplicación</h3>
+            <p>Imagina que compraste un terreno que tiene un río curvado en uno de sus bordes y necesitas saber su área exacta. Como no es un cuadrado ni un triángulo, las fórmulas geométricas que aprendiste en la escuela no sirven. ¿Qué harías?</p>
+            
+            <div class="cita-destacada">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <p>El matemático Bernhard Riemann propuso una solución ingeniosa: <br><strong>"Si no puedes medir la figura entera, córtala en pedazos que sí conozcas".</strong></p>
+            </div>
+            
+            <div class="teoria-seccion">
+                <h3><i class="fa-solid fa-layer-group"></i> La Estrategia de los Rectángulos</h3>
+                <p>La idea principal es rellenar el espacio debajo de la curva con rectángulos. Como calcular el área de un rectángulo es muy fácil (base por altura), solo tenemos que sumar todas esas áreas pequeñas para obtener el área total aproximada.</p>
+                
+                <p>Dependiendo de cómo acomodes los rectángulos, tienes tres métodos:</p>
+                
+                <div class="grid-metodos">
+                    <div class="tarjeta-metodo">
+                        <div class="icono-metodo rojo"><i class="fa-solid fa-align-left"></i></div>
+                        <h4>Extremo Izquierdo</h4>
+                        <p>La esquina izquierda toca la curva. A veces deja huecos sin medir.</p>
+                    </div>
+                    <div class="tarjeta-metodo">
+                        <div class="icono-metodo amarillo"><i class="fa-solid fa-align-right"></i></div>
+                        <h4>Extremo Derecho</h4>
+                        <p>La esquina derecha toca la curva. A veces sobresale y mide de más.</p>
+                    </div>
+                    <div class="tarjeta-metodo">
+                        <div class="icono-metodo verde"><i class="fa-solid fa-align-center"></i></div>
+                        <h4>Punto Medio</h4>
+                        <p>El centro toca la curva. Es el más exacto porque compensa los errores.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="teoria-seccion">
+                <h3><i class="fa-solid fa-calculator"></i> La Fórmula Matemática</h3>
+                <p>En los libros de cálculo vas a encontrar que la Suma de Riemann se escribe formalmente así:</p>
+                
+                <div class="caja-formula tex2jax_ignore">
+                    <span class="formula-texto">Área Aproximada = </span>
+                    <div class="formula-sigma">
+                        <span class="sigma-n">n</span>
+                        <span class="sigma-simbolo">&sum;</span>
+                        <span class="sigma-i">i=1</span>
+                    </div>
+                    <span class="formula-elementos">f(x<sub>i</sub>) &middot; &Delta;x</span>
+                </div>
+                    <span class="formula-elementos">f(x<sub>i</sub>) &middot; &Delta;x</span>
+                </div>
+
+                <p>Aunque tenga símbolos raros, se lee de forma muy sencilla:</p>
+                
+                <div class="contenedor-explicacion">
+                    <div class="tarjeta-explicacion">
+                        <div class="badge-simbolo">&sum;</div>
+                        <div class="texto-explicacion"><strong>Símbolo Sigma:</strong> Significa <i>"Suma todos los elementos, desde el primero (1) hasta el último (n)"</i>. Es decir, suma todos los rectángulos.</div>
+                    </div>
+                    
+                    <div class="tarjeta-explicacion">
+                        <div class="badge-simbolo">f(x<sub>i</sub>)</div>
+                        <div class="texto-explicacion"><strong>La función:</strong> Representa la <strong>altura</strong> de cada rectángulo en un punto específico.</div>
+                    </div>
+                    
+                    <div class="tarjeta-explicacion">
+                        <div class="badge-simbolo">&Delta;x</div>
+                        <div class="texto-explicacion"><strong>Delta x:</strong> Representa el <strong>ancho (base)</strong> de cada rectángulo. Se calcula dividiendo el ancho total entre el número de rectángulos.</div>
+                    </div>
+                </div>
+
+            <div class="teoria-seccion">
+                <h3><i class="fa-solid fa-infinity"></i> La clave del </h3>
+                <p>Si usas solo 4 rectángulos anchos, tu cálculo tendrá mucho error. Pero a medida que los rectángulos se vuelven infinitamente delgados (cuando el número de rectángulos tiende al infinito), el error desaparece por completo. A ese momento exacto lo llamamos <strong>Integral Definida</strong>.</p>
+            </div>
+            
+        </div>
+    </div>
+    <div id="simulador" class="contenido-pestana" style="display: none;">
+        <div class="contenedor">
+            
+            <div class="panel">
+                <h2>Caso de Estudio</h2>
+                <select id="funcion">
+                    <option value="lineal">Lineal: f(x) = x + 2</option>
+                    <option value="cuadratica">Cuadrática: f(x) = x²</option>
+                    <option value="cubica">Cúbica: f(x) = x³</option>
+                    <option value="raiz"> Raíz Cuadrada: f(x) = √x</option>
+                    <option value="exponencial">Exponencial: f(x) = eˣ</option>
+                    <option value="trigonometrica">Trigonométrica: f(x) = sen(x)</option>
+                    <option value="gaussiana">Campana de Gauss: f(x) = e^(-x²)</option>
+                    <option value="absoluto">Valor Absoluto: f(x) = |x|</option>
+                </select>
+
+                <h2>Intervalo de Integración</h2>
+                <div style="display: flex; gap: 10px;">
+                    <div>
+                        <label>a (Inicio):</label>
+                        <input type="number" id="valA" value="0" step="1">
+                    </div>
+                    <div>
+                        <label>b (Fin):</label>
+                        <input type="number" id="valB" value="5" step="1">
+                    </div>
+                </div>
+
+                <h2>Rectángulos: <span id="numRectVisual" style="color:#2563eb;">10</span></h2>
+                <input type="range" id="rectangulos" min="1" max="100" value="10">
+
+                <h2>Método de Evaluación</h2>
+                <select id="metodo">
+                    <option value="izquierda">Extremo Izquierdo</option>
+                    <option value="derecha">Extremo Derecho</option>
+                    <option value="central">Punto Medio</option>
+                </select>
+                
+                <div class="panel-didactico" id="mensajeDidactico"></div>
+
+                <h3 style="margin-top: 15px; color: #0b2a66; text-align: center;">
+                    Área Aproximada <br><span id="resultado" style="font-size: 28px;">0.00</span>
+                </h3>
+            </div>
+
+            <div class="grafica">
+    
+    <div id="grafico" style="width: 100%; min-height: 500px;"></div>
+    
+    <img src="robot.png" alt="Robot Asistente" class="robot-asistente">
+
+</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
